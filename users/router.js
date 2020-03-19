@@ -8,6 +8,8 @@ const jsonParser = bodyParser.json();
 
 // post request to register a new user
 router.post('/', jsonParser, (req, res) => {
+  console.log('req', req);
+  console.log('res', res);
   // checking for required fields
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
@@ -72,7 +74,11 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  let {username, password, role} = req.body;
+  let {
+    username, 
+    password 
+    // role
+  } = req.body;
 
   return User
     .find({username})
@@ -105,3 +111,5 @@ router.post('/', jsonParser, (req, res) => {
         });
     });
 });
+
+module.exports = {router};

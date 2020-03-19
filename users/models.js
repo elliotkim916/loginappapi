@@ -3,6 +3,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+mongoose.Promise = global.Promise;
+
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
@@ -12,13 +14,13 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  },
-  role: {
-    type: String,
-    required: true,
-    enum: ['user', 'admin']
-    // only save if one of them is in the list
   }
+  // role: {
+  //   type: String,
+  //   required: true,
+  //   enum: ['user', 'admin']
+  //   // only save if one of them is in the list
+  // }
 });
 
 UserSchema.methods.serialize = () => {
