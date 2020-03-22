@@ -34,7 +34,6 @@ module.exports = {
     let userToUpdate;
  
     try {
-      // editUserById = await User.findByIdAndUpdate(id, role);
       userToUpdate = await User.findById(id);
     } catch(e) {
       console.log(e);
