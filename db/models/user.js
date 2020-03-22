@@ -2,7 +2,6 @@
 
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 
 const UserSchema = mongoose.Schema({
   username: {
@@ -13,13 +12,13 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  role: {
+    type: String,
+    required: true,
+    enum: ['user', 'admin'],
+    default: 'admin'
   }
-  // role: {
-  //   type: String,
-  //   required: true,
-  //   enum: ['user', 'admin']
-  //   // only save if one of them is in the list
-  // }
 });
 
 UserSchema.methods.serialize = function() {
@@ -33,10 +32,4 @@ UserSchema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password);
 };
 
-UserSchema.methods.hashPassword = function(password) {
-  return bcrypt.hash(password, 10);
-};
-
-const User = mongoose.model('User', UserSchema);
-
-module.exports = {User};
+module.exports = mongoose.model('User', UserSchema);;
